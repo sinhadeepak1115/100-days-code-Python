@@ -10,3 +10,5 @@ for score in student_scores:
   if score > a:
     a = score
 print(f"The highest score in the class is:{a}")
+
+

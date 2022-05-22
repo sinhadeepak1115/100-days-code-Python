@@ -1,64 +1,9 @@
 import random
-
-stages = ['''
-  +---+
-  |   |
-  O   |
- /|\  |
- / \  |
-      |
-=========
-''', '''
-  +---+
-  |   |
-  O   |
- /|\  |
- /    |
-      |
-=========
-''', '''
-  +---+
-  |   |
-  O   |
- /|\  |
-      |
-      |
-=========
-''', '''
-  +---+
-  |   |
-  O   |
- /|   |
-      |
-      |
-=========''', '''
-  +---+
-  |   |
-  O   |
-  |   |
-      |
-      |
-=========
-''', '''
-  +---+
-  |   |
-  O   |
-      |
-      |
-      |
-=========
-''', '''
-  +---+
-  |   |
-      |
-      |
-      |
-      |
-=========
-''']
+import hangman_words
+import hangman_art
 
 end_of_game = False
-word_list = ["ardvark", "baboon", "camel"]
+word_list = hangman_words.word_list
 chosen_word = random.choice(word_list)
 word_length = len(chosen_word)
 
@@ -66,8 +11,7 @@ word_length = len(chosen_word)
 #Set 'lives' to equal 6.
 lives = 6
 
-#Testing code
-print(f'Pssst, the solution is {chosen_word}.')
+print(hangman_art.logo)
 
 #Create blanks
 display = []
@@ -98,7 +42,7 @@ while not end_of_game:
 
     #Join all the elements in the list and turn it into a String.
     print(f"{' '.join(display)}")
-    print(stages[lives])
+    print(hangman_art.stages[lives])
 
     #Check if user has got all letters.
     if "_" not in display:

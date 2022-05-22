@@ -1,36 +1,108 @@
 import random
-word_list = ["aardvark", "baboon", "camel"]
+
+stages = ['''
+  +---+
+  |   |
+  O   |
+ /|\  |
+ / \  |
+      |
+=========
+''', '''
+  +---+
+  |   |
+  O   |
+ /|\  |
+ /    |
+      |
+=========
+''', '''
+  +---+
+  |   |
+  O   |
+ /|\  |
+      |
+      |
+=========
+''', '''
+  +---+
+  |   |
+  O   |
+ /|   |
+      |
+      |
+=========''', '''
+  +---+
+  |   |
+  O   |
+  |   |
+      |
+      |
+=========
+''', '''
+  +---+
+  |   |
+  O   |
+      |
+      |
+      |
+=========
+''', '''
+  +---+
+  |   |
+      |
+      |
+      |
+      |
+=========
+''']
+
+end_of_game = False
+word_list = ["ardvark", "baboon", "camel"]
 chosen_word = random.choice(word_list)
+word_length = len(chosen_word)
+
+#TODO-1: - Create a variable called 'lives' to keep track of the number of lives left.
+#Set 'lives' to equal 6.
+lives = 6
 
 #Testing code
 print(f'Pssst, the solution is {chosen_word}.')
 
-#TODO-1: - Create an empty List called display.
-#For each letter in the chosen_word, add a "_" to 'display'.
-#So if the chosen_word was "apple", display should be ["_", "_", "_", "_", "_"] with 5 "_" representing each letter to guess.
+#Create blanks
+display = []
+for _ in range(word_length):
+    display += "_"
 
-blanck = []
+while not end_of_game:
+    guess = input("Guess a letter: ").lower()
 
-for letter in chosen_word:
-    letter = "_"
-    blanck.append(letter)
-print(blanck)
+    #Check guessed letter
+    for position in range(word_length):
+        letter = chosen_word[position]
+        # print(f"Current position: {position}\n Current letter: {letter}\n Guessed letter: {guess}")
+        if letter == guess:
+            display[position] = letter
 
-guess = input("Guess a letter: ").lower()
+    #TODO-2: - If guess is not a letter in the chosen_word,
+    #Then reduce 'lives' by 1.
 
-#TODO-2: - Loop through each position in the chosen_word;
-#If the letter at that position matches 'guess' then reveal that letter in the display at that position.
-#e.g. If the user guessed "p" and the chosen word was "apple", then display should be ["_", "p", "p", "_", "_"].
-guessed_word = []
-for letter in chosen_word:
-    if letter == guess:
-        letter = guess
-        guessed_word.append(letter)
+    if guess not in chosen_word:
+        lives -= 1
+    print(lives)
+    #If lives goes down to 0 then the game should stop and it should print "You lose."
 
-    else:
-        letter = "_"
-        guessed_word.append(letter)
-print(guessed_word)
+    if lives == 0:
+        print("You lose")
+        end_of_game = True
 
-#TODO-3: - Print 'display' and you should see the guessed letter in the correct position and every other letter replace with "_".
-#Hint - Don't worry about getting the user to guess the next letter. We'll tackle that in step 3.
+    #Join all the elements in the list and turn it into a String.
+    print(f"{' '.join(display)}")
+    print(stages[lives])
+
+    #Check if user has got all letters.
+    if "_" not in display:
+        end_of_game = True
+        print("You win.")
+
+    #TODO-3: - print the ASCII art from 'stages' that corresponds to the current number of 'lives' the user has remaining.
